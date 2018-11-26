@@ -1,0 +1,14 @@
+//
+// Created by Hannah Lee on 2018-11-25.
+//
+
+#ifndef ASSIGNMENT02_GENETICALGORITHM_HPP
+#define ASSIGNMENT02_GENETICALGORITHM_HPP
+
+
+class GeneticAlgorithm {
+
+};
+
+
+#endif //ASSIGNMENT02_GENETICALGORITHM_HPP
