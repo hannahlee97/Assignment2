@@ -1,6 +1,6 @@
-//
-// Created by Hannah Lee on 2018-11-25.
-//
+/*
+ * C++ Assignment02 City.hpp file.
+ */
 
 #ifndef ASSIGNMENT02_CITY_HPP
 #define ASSIGNMENT02_CITY_HPP
@@ -12,19 +12,14 @@
 using namespace std;
 
 class City {
-private:
     string name;
-    double x_coordinate;
-    double y_coordinate;
-
+    pair<int, int> position;
 public:
-    City(string name, double x, double y);
-    string getName() { return name; }
-    double get_x() const { return x_coordinate; }
-    double get_y() const { return y_coordinate; }
-    friend bool operator==(const City & lhs, const City & rhs);
+    City(string n, int x, int y);
+    int get_x() const;
+    int get_y() const;
     double distance(const City& c);
-
+    friend bool operator==(const City& lhs, const City& rhs);
 };
 
 

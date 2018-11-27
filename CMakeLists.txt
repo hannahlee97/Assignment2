@@ -3,4 +3,4 @@ project(assignment02)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(assignment02 Tour.cpp Tour.hpp Main.cpp GeneticAlgorithm.cpp GeneticAlgorithm.hpp City.cpp City.hpp Population.cpp Population.hpp)
+add_executable(assignment02 Tour.cpp Tour.hpp Main.cpp City.cpp City.hpp)

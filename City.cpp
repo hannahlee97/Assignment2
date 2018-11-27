@@ -1,6 +1,6 @@
-//
-// Created by Hannah Lee on 2018-11-25.
-//
+/*
+ * C++ Assignment02 City.cpp file.
+ */
 
 #include "City.hpp"
 #include <iostream>
@@ -8,17 +8,20 @@
 
 using namespace std;
 
-City::City(string name, double x, double y) : name(name), x_coordinate(x), y_coordinate(y) {}
+City::City(string n, int x, int y) : name(n), position(make_pair(x, y)) { }
 
-double City::distance(const City& c) {
-
-    return sqrt(pow(c.get_x() - get_x(), 2.0) + pow(c.get_y() - get_y(), 2.0));
+int City::get_x() const {
+    return position.first;
 }
 
-bool operator==(const City & lhs, const City & rhs) {
-    if(lhs.name == rhs.name &&
-    lhs.x_coordinate == rhs.x_coordinate &&
-    lhs.y_coordinate == rhs.y_coordinate)
-        return true;
-    return false;
+int City::get_y() const {
+    return position.second;
+}
+
+double City::distance(const City& c) {
+    return sqrt(pow(c.get_x() - get_x(), 2) + pow(c.get_y() - get_y(), 2));
+}
+
+bool operator==(const City& lhs, const City& rhs) {
+    return lhs.name == rhs.name;
 }
