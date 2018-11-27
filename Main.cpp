@@ -11,12 +11,19 @@
 #include "City.hpp"
 #include "Tour.hpp"
 
+// Travelling salsesman problem using genetic algorithm
+// What is the shortest possible route that visits each city and returns to the original city?
+
 using namespace std;
 
 int main() {
+    // Number of cities using in each simulation
     const int CITIES_IN_TOUR = 32;
+    // Number of candidate tours in population
     const int POPULATION_SIZE = 32;
+    // 1000 is largest legal coordinate
     const int MAP_BOUNDARY = 1000;
+    // Number of elites
     const int NUM_OF_ELITES = 1;
     const int IMPROVEMENT_FACTOR = 2;
 
@@ -38,14 +45,14 @@ int main() {
         for(int o = 0; o < CITIES_IN_TOUR; ++o) {
             t.adding_city(master_list.at(o));
         }
-        t.shuffle();
+        t.shuffle_cities();
         t.determine_fitness();
         population.at((unsigned long)i) = t;
     }
 
     sort(population.begin(), population.end(), greater<>());
 
-    //Start of Genetic Algorithm
+    //Start of Genetic Algorithm, the base
     double base_distance = population.at(0).get_fitness();
     double best_distance = base_distance;
     int generation = 0;
@@ -65,7 +72,7 @@ int main() {
         ++generation;
     }
 
-    cout << endl << "Improvment factor has been reached :" << endl;
+    cout << endl << "Improvment factor has been reached:" << endl;
     cout << "Generation " << generation << " Base : " << base_distance << " Best : " << best_distance << " Improvement : " << improvement << endl;
 
     return 0;

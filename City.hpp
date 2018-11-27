@@ -15,6 +15,7 @@ class City {
     string name;
     pair<int, int> position;
 public:
+    // string n -> name, and x -> longitude y -> latitude
     City(string n, int x, int y);
     int get_x() const;
     int get_y() const;

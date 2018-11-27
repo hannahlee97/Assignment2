@@ -9,13 +9,18 @@
 
 using namespace std;
 
+// Number of times a swap must be effected for a shuffle to finish
 const int SHUFFLES = 64;
+// Number of members randomly selected from the population when choosing a parent
 const int PARENT_POOL_SIZE = 5;
-const int NUM_OF_PARENTS = 2;
-const int MUTATION_RATE = 30;
+// Actual number of parent tours crossed to generate offspring tour
+const int NUMBER_OF_PARENTS = 2;
+// Mutation rate
+const int MUTATION_RATE = 15;
 
 default_random_engine generator(static_cast<long unsigned int>(time(nullptr)));
 
+// Constructor
 tour::tour(const tour &t) {
     route = t.route;
     fitness = t.fitness;
@@ -27,7 +32,8 @@ void tour::adding_city(const City& c) {
     }
 }
 
-void tour::shuffle() {
+// Shuffle cities in a tour
+void tour::shuffle_cities() {
     uniform_int_distribution<unsigned long> distribution(0, (route.size() - 1));
 
     for(int i = 0; i < SHUFFLES; ++i) {
@@ -40,10 +46,14 @@ void tour::shuffle() {
     }
 }
 
+// Represents quality of the tour
+// Shorter tours are better quality, have better fitness
 double tour::get_fitness() {
     return fitness;
 }
 
+// Evaluate distance travelling salesman would need to travel to visit
+// the cities in the order they appear in the tour
 void tour::determine_fitness() {
     auto itBegin = route.begin();
     auto itNext = route.begin() + 1;
@@ -61,6 +71,7 @@ void tour::determine_fitness() {
     fitness = 1 / totalDistance * 10000;
 }
 
+// Checks if tour contains a specified city
 bool tour::contains_city(const City& c) {
     auto itBegin = route.begin();
     auto itEnd = route.end();
@@ -74,6 +85,7 @@ bool tour::contains_city(const City& c) {
     return false;
 }
 
+// May mutate a tour
 void tour::mutate() {
     uniform_int_distribution<int> distribution(0, 100);
 
@@ -92,6 +104,7 @@ void tour::mutate() {
     }
 }
 
+// Select the parents for new tour from a population
 vector<tour> tour::select_parents(const vector<tour>& every) {
     uniform_int_distribution<int> distribution(0, route.size() - 1);
     set<int> potential_parents_1;
@@ -117,13 +130,14 @@ vector<tour> tour::select_parents(const vector<tour>& every) {
 
     vector<tour> parents;
 
-    for(int i = 0; i < NUM_OF_PARENTS; ++i) {
+    for(int i = 0; i < NUMBER_OF_PARENTS; ++i) {
         parents.push_back(potential_parents_2.at(i));
     }
 
     return parents;
 }
 
+// Creating new tour from given set of parent tours
 tour tour::crossover(vector<tour> parents) {
     vector<int> random_index;
     uniform_int_distribution<int> distribution(0, route.size() - 1);
